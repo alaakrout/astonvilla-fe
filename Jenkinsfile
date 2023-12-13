@@ -14,16 +14,16 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build --no-cache -t ${IMAGE_NAME} ."
+                bat "docker build --no-cache -t ${IMAGE_NAME} ."
             }
         }
 
         stage('Push Docker Image to registry'){
           steps{
               withCredentials([usernamePassword(credentialsId: 'docker_registry', passwordVariable: 'password', usernameVariable: 'username')]) {
-                sh "docker login ${REGISTRY} -u $username -p $password"
-                sh "docker tag ${IMAGE_NAME} ${REGISTRY}/${IMAGE_NAME}"
-                sh "docker push ${REGISTRY}/${IMAGE_NAME}"
+                bat "docker login ${REGISTRY} -u $username -p $password"
+                bat "docker tag ${IMAGE_NAME} ${REGISTRY}/${IMAGE_NAME}"
+                bat "docker push ${REGISTRY}/${IMAGE_NAME}"
               }
           }
         }
