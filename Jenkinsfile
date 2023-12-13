@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         IMAGE_NAME = "tpdevops"
-        REGISTRY   = "akrout97"
     }
     
     options {
@@ -21,7 +20,7 @@ pipeline {
         stage('Push Docker Image to registry'){
           steps{
               withCredentials([usernamePassword(credentialsId: 'docker_registry', passwordVariable: 'password', usernameVariable: 'username')]) {
-                bat "docker login ${REGISTRY} -u $username -p $password"
+                bat "docker login -u $username -p $password"
                 bat "docker tag ${IMAGE_NAME} ${REGISTRY}/${IMAGE_NAME}"
                 bat "docker push ${REGISTRY}/${IMAGE_NAME}"
               }
