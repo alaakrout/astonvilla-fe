@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        IMAGE_NAME = "tpdevops"
+        IMAGE_NAME        = "tpdevops"
+        DOCKER_HUB_USER   = "akrout97"
     }
     
     options {
@@ -21,23 +22,23 @@ pipeline {
           steps{
               withCredentials([usernamePassword(credentialsId: 'docker_registry', passwordVariable: 'password', usernameVariable: 'username')]) {
                 bat "docker login -u $username -p $password"
-                bat "docker tag ${IMAGE_NAME} ${REGISTRY}/${IMAGE_NAME}"
-                bat "docker push ${REGISTRY}/${IMAGE_NAME}"
+                bat "docker tag ${IMAGE_NAME} ${DOCKER_HUB_USER}/${IMAGE_NAME}"
+                bat "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}"
               }
           }
         }
 
         stage('Clean up'){
           steps{
-              bat "docker rmi ${IMAGE_NAME} ${REGISTRY}/${IMAGE_NAME}"
+              bat "docker rmi ${IMAGE_NAME} ${DOCKER_HUB_USER}/${IMAGE_NAME}"
               }
           }
 
         stage ('Run docker image'){
 
            steps{
-            bat "docker pull ${REGISTRY}/${IMAGE_NAME}"
-            bat "docker run -d --name ${IMAGE_NAME} -p 8888:80 ${REGISTRY}/${IMAGE_NAME}"
+            bat "docker pull ${DOCKER_HUB_USER}/${IMAGE_NAME}"
+            bat "docker run -d --name ${IMAGE_NAME} -p 8888:80 ${DOCKER_HUB_USER}/${IMAGE_NAME}"
            }
         }
     }
