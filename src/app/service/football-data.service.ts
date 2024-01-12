@@ -19,15 +19,11 @@ export class FootballDataService {
   }
 
   retrieveTestStandings(): Standing[] {
-    let a = this.http.get<Standing[]>("https://localhost:7223/api/teams").subscribe(
-      (data) => {
-      a = data;
-      },
-      (error) => {
-        console.error('Error fetching standings:', error);
-      }
-    );
-    return a;
+     this.http.get<Standing[]>("http://astonvilla-be:8000/api/teams").toPromise().then(y=>{
+      if (y.length>0)
+      return y;
+    });
+    return null;
     // [
     //   {
     //   "team_name": "Norwich City",

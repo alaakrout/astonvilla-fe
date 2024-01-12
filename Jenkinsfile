@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        IMAGE_NAME        = "tpdevops"
+        IMAGE_NAME        = "astonvilla-fe"
         DOCKER_HUB_USER   = "akrout97"
     }
     
@@ -34,11 +34,12 @@ pipeline {
               }
           }
 
-        stage ('Run docker image'){
+        stage ('deploy app to minikube'){
 
            steps{
-            bat "docker pull ${DOCKER_HUB_USER}/${IMAGE_NAME}"
-            bat "docker run -d --name ${IMAGE_NAME} -p 8888:80 ${DOCKER_HUB_USER}/${IMAGE_NAME}"
+                withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://127.0.0.1:65265']) {
+                  bat 'kubectl apply -f astonvilla-fe.yaml'
+                }
            }
         }
     }
