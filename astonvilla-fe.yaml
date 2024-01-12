@@ -17,6 +17,7 @@ spec:
       containers:
       - name: astonvilla-fe
         image: akrout97/astonvilla-fe
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---
