@@ -26,9 +26,11 @@ kind: Service
 metadata:
   name: astonvilla-fe
 spec:
+  type: NodePort
   selector:
     app: astonvilla-fe
   ports:
     - protocol: TCP
       port: 9000
       targetPort: 80
+      nodePort: 30002
