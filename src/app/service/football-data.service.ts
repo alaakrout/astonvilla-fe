@@ -19,7 +19,7 @@ export class FootballDataService {
   }
 
   retrieveTestStandings(): Standing[] {
-     this.http.get<Standing[]>("http://astonvilla-be:8000/api/teams").toPromise().then(y=>{
+     this.http.get<Standing[]>("http://localhost:30001/api/teams").toPromise().then(y=>{
       if (y.length>0)
       return y;
     });
