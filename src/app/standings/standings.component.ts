@@ -19,27 +19,23 @@ export class StandingsComponent implements OnInit {
     this.retrieveAllStandings();
   }
 
-  retrieveAllStandings(): void {
+  retrieveAllStandings():void{
     this.footballService.retrieveAllStandings().subscribe(
+      
       response => {
         this.standings = response;
-        
-        if (!this.isAVInStandings(this.standings)) {
-          // Assuming retrieveTestStandings returns an Observable
-          this.footballService.retrieveTestStandings().subscribe(
-            testStandings => {
-              if (testStandings.length > 0) {
-                this.standings = testStandings;
-              }
-            },
-            error => {
-              console.error('Error retrieving test standings:', error);
-            }
-          );
-        }
+        if (!this.isAVInStandings(this.standings)) 
+        this.footballService.retrieveTestStandings().toPromise().then(y=>{
+          if(y.length>0)
+          this.standings =  y;
+               });
       },
       error => {
-        console.error('Error retrieving standings:', error);
+        this.footballService.retrieveTestStandings().toPromise().then(y=>{
+          if(y.length>0)
+          this.standings =  y;
+               });
+        
       }
     );
   }
