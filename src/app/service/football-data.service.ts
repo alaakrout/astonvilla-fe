@@ -19,11 +19,7 @@ export class FootballDataService {
   }
 
   retrieveTestStandings(): Standing[] {
-     this.http.get<Standing[]>("http://192.168.59.100:30001/api/teams").toPromise().then(y=>{
-     
-      return y;
-    });
-    return null;
+    return this.http.get<Standing[]>("http://192.168.59.100:30001/api/teams");
     // [
     //   {
     //   "team_name": "Norwich City",

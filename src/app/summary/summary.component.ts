@@ -36,7 +36,11 @@ export class SummaryComponent implements OnInit {
   }
 
   private getTestLeaguePosition(): void {
-    let standings = this.footballDataService.retrieveTestStandings();
+      let standings ;//= this.footballDataService.retrieveTestStandings();
+    this.footballDataService.retrieveTestStandings().toPromise().then(y=>{
+      if(y.length>0)
+      standings =  y;
+           });
     this.position = standings.find(x => x.team_name === 'Aston Villa').overall_league_position;
   }
 }

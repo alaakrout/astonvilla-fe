@@ -25,10 +25,17 @@ export class StandingsComponent implements OnInit {
       response => {
         this.standings = response;
         if (!this.isAVInStandings(this.standings)) 
-          this.standings = this.footballService.retrieveTestStandings();
+        this.footballService.retrieveTestStandings().toPromise().then(y=>{
+          if(y.length>0)
+          this.standings =  y;
+               });
       },
       error => {
-        this.standings = this.footballService.retrieveTestStandings();
+        this.footballService.retrieveTestStandings().toPromise().then(y=>{
+          if(y.length>0)
+          this.standings =  y;
+               });
+        
       }
     );
   }
