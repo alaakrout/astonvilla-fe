@@ -18,7 +18,7 @@ export class FootballDataService {
     return this.http.get<Standing[]>(this.standingURL);
   }
 
-  retrieveTestStandings(): Standing[] {
+  retrieveTestStandings(): Observable<Standing[]> {
     return this.http.get<Standing[]>("http://192.168.59.100:30001/api/teams");
     // [
     //   {
