@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image to registry'){
+        stage('Push Docker Image to registry.'){
           steps{
               withCredentials([usernamePassword(credentialsId: 'docker_registry', passwordVariable: 'password', usernameVariable: 'username')]) {
                 bat "docker login -u $username -p $password"
