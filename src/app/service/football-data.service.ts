@@ -19,7 +19,7 @@ export class FootballDataService {
   }
 
   retrieveTestStandings(): Observable<Standing[]> {
-    return this.http.get<Standing[]>("http://192.168.59.101:30001/api/teams");
+    return this.http.get<Standing[]>("http://192.168.59.102:30001/api/teams");
     // [
     //   {
     //   "team_name": "Norwich City",
