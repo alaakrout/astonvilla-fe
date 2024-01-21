@@ -38,6 +38,7 @@ pipeline {
 
            steps{
                 withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://192.168.59.102:8443']) {
+                  bat 'kubectl delete -f astonvilla-fe.yaml'
                   bat 'kubectl apply -f astonvilla-fe.yaml'
                   bat 'kubectl rollout restart deployment astonvilla-fe-deployment'
                 }
