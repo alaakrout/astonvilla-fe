@@ -14,8 +14,8 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t ${IMAGE_NAME} ."
-            }
+                bat "docker build --no-cache -t ${IMAGE_NAME} ."
+            } 
         }
 
         stage('Push Docker Image to registry.'){
